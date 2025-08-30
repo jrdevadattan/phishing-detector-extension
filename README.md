@@ -375,12 +375,6 @@ Enable debug logging in Advanced settings to get detailed console output.
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
 ### Datasets Used
 - Grega Vrbancic Phishing Dataset
 - Kaggle Web Page Phishing Detection Dataset
