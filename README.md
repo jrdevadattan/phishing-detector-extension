@@ -1,1 +1,0 @@
-# phishing-detector-extension
