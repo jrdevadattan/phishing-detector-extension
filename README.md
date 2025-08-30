@@ -1,4 +1,4 @@
-# Phishing Detector - Chrome Extension
+# 🛡️ Phishing Detector Pro
 
 Protect yourself from phishing websites in real-time using advanced AI models and threat intelligence sources.
 
@@ -101,6 +101,13 @@ phishing-detector-extension/
   Pull requests and issues are welcome!
 
 ---
+## 📸 Screenshots
+
+### Extension Popup
+![Popup Screenshot](<img width="1917" height="1136" alt="image" src="https://github.com/user-attachments/assets/56491d03-e0e1-4fa3-a345-013d75e0e94a" />)
+
+### Settings Page
+![Settings Screenshot](<img width="1897" height="1026" alt="image" src="https://github.com/user-attachments/assets/6dd8c60f-6c03-477f-8635-1eb5be7c4d29" />)
 
 ## 📖 Credits
 
