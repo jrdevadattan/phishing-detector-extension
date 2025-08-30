@@ -1,4 +1,4 @@
-# Phishing Detector Pro - Chrome Extension
+# Phishing Detector - Chrome Extension
 
 A comprehensive Chrome Extension that detects phishing websites in real-time using multiple AI models and threat intelligence sources.
 
