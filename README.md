@@ -106,13 +106,13 @@ phishing-detector-extension/
 
 ### Datasets & Models Used
 
-- [Grega Vrbancic Phishing Dataset](https://data.mendeley.com/datasets/h3cgnj8hft/1)
-- [Kaggle Web Page Phishing Detection Dataset](https://www.kaggle.com/datasets/akashkr/phishing-website-detection)
-- [Mendeley Phishing Dataset](https://data.mendeley.com/datasets/h3cgnj8hft/1)
-- [HuggingFace Phishing Dataset](https://huggingface.co/datasets/phishing)
-- [IEEE Dataport Phishing Attack Dataset](https://ieee-dataport.org/open-access/phishing-attack-dataset)
-- [PhishOFE Dataset](https://zenodo.org/record/3724058)
-- [Zenodo Phishing Dataset](https://zenodo.org/record/3724058)
+- [Phishing Dataset – GregaVrbancic](https://github.com/GregaVrbancic/Phishing-Dataset)
+- [Web Page Phishing Detection Dataset – Kaggle](https://www.kaggle.com/datasets/shashwatwork/web-page-phishing-detection-dataset)
+- [Phishing Dataset – Mendeley](https://data.mendeley.com/datasets/vfszbj9b36/1)
+- [Phishing Dataset – Hugging Face](https://huggingface.co/datasets/ealvaradob/phishing-dataset)
+- [Phishing Attack Dataset – IEEE DataPort](https://ieee-dataport.org/documents/phishing-attack-dataset)
+- [PhishOfE Dataset – IEEE DataPort](https://ieee-dataport.org/documents/phishofe-dataset-phishing-url-dataset)
+- [Phishing URL Dataset – Zenodo](https://zenodo.org/records/8041387)
 
 ### APIs and Services
 
