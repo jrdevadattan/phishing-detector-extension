@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Detector Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="../icons/icon32.png" alt="Phishing Detector" class="logo">
+      <h1>Phishing Detector Pro</h1>
+      <button id="settingsBtn" class="settings-btn" title="Settings">⚙️</button>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state">
+      <div class="spinner"></div>
+      <p>Analyzing website...</p>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content hidden">
+      <!-- Risk Assessment -->
+      <div class="risk-assessment">
+        <div class="risk-circle" id="riskCircle">
+          <div class="risk-percentage" id="riskPercentage">--</div>
+          <div class="risk-label">RISK</div>
+        </div>
+        <div class="risk-details">
+          <div class="recommendation" id="recommendation">ANALYZING</div>
+          <div class="confidence" id="confidence">Confidence: --%</div>
+          <div class="url-info" id="urlInfo">---</div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button id="refreshBtn" class="action-btn primary">🔄 Refresh Analysis</button>
+        <button id="reportBtn" class="action-btn secondary">⚠️ Report Issue</button>
+      </div>
+
+      <!-- Detailed Results -->
+      <div class="detailed-results" id="detailedResults">
+        <h3>Analysis Details</h3>
+        
+        <!-- AI Models Results -->
+        <div class="result-section">
+          <h4>AI Models <span class="count" id="aiModelCount">(0/7)</span></h4>
+          <div class="model-results" id="aiModelResults">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+
+        <!-- Trust Scores Results -->
+        <div class="result-section">
+          <h4>Trust Scores <span class="count" id="trustScoreCount">(0/2)</span></h4>
+          <div class="trust-results" id="trustScoreResults">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+
+        <!-- Risk Factors -->
+        <div class="result-section">
+          <h4>Risk Factors</h4>
+          <div class="risk-factors" id="riskFactors">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Toggle for detailed view -->
+      <div class="toggle-section">
+        <label class="toggle">
+          <input type="checkbox" id="showDetailedToggle" checked>
+          <span class="toggle-slider"></span>
+          Show Detailed Results
+        </label>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="error-state hidden">
+      <div class="error-icon">⚠️</div>
+      <h3>Analysis Error</h3>
+      <p id="errorMessage">Unable to analyze this website</p>
+      <button id="retryBtn" class="action-btn primary">Retry Analysis</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <span class="version">v1.0.0</span>
+      <a href="#" id="helpBtn" class="help-link">Help</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

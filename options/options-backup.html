@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Detector Pro - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <img src="../icons/icon48.png" alt="Phishing Detector" class="logo">
+        <div>
+          <h1>Phishing Detector Pro</h1>
+          <p>Configure your phishing detection settings</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="general">General</button>
+      <button class="nav-tab" data-tab="trust">Trust Scores</button>
+      <button class="nav-tab" data-tab="models">AI Models</button>
+      <button class="nav-tab" data-tab="api">API Keys</button>
+      <button class="nav-tab" data-tab="advanced">Advanced</button>
+    </nav>
+
+    <!-- Settings Content -->
+    <main class="content">
+      <!-- General Tab -->
+      <section id="general" class="tab-content active">
+        <h2>General Settings</h2>
+        
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Enable Phishing Detection</span>
+              <span class="setting-description">Turn on/off the entire extension</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="enabled" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Show Notifications</span>
+              <span class="setting-description">Display browser notifications for high-risk sites</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="showNotifications" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Auto-block Phishing Sites</span>
+              <span class="setting-description">Automatically redirect away from dangerous sites</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="autoBlock">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Risk Threshold</span>
+              <span class="setting-description">Minimum risk percentage to trigger warnings (0-100%)</span>
+            </div>
+            <div class="input-group">
+              <input type="number" id="riskThreshold" min="0" max="100" value="70">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Cache Expiry</span>
+              <span class="setting-description">How long to cache analysis results (minutes)</span>
+            </div>
+            <div class="input-group">
+              <input type="number" id="cacheExpiry" min="1" max="1440" value="60">
+              <span class="input-suffix">min</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Models Tab -->
+      <section id="models" class="tab-content">
+        <h2>AI Models Configuration</h2>
+        
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Enable AI Models</span>
+              <span class="setting-description">Use local AI models for phishing detection</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="aiModelsEnabled" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <h3>Available Models</h3>
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Grega Vrbancic Model</span>
+              <span class="setting-description">Phishing detection based on URL features</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-vrbancic" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Kaggle Web Page Model</span>
+              <span class="setting-description">Machine learning model from Kaggle dataset</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-kaggle" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Mendeley Model</span>
+              <span class="setting-description">Research-based phishing detection model</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-mendeley" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">HuggingFace Model</span>
+              <span class="setting-description">Advanced transformer-based detection</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-huggingface" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">IEEE Dataport Model</span>
+              <span class="setting-description">Academic research model from IEEE</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-ieee" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">PhishOFE Model</span>
+              <span class="setting-description">Phishing attack detection framework</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-phishofe" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Zenodo Model</span>
+              <span class="setting-description">Open research phishing detection model</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="model-zenodo" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Trust Scores Tab -->
+      <section id="trust" class="tab-content">
+        <h2>Trust Score Services</h2>
+        
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Enable Trust Scores</span>
+              <span class="setting-description">Use external threat intelligence services</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="trustScoresEnabled" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <h3>Available Services</h3>
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Google Safe Browsing</span>
+              <span class="setting-description">Google's threat intelligence service</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="trust-googleSafeBrowsing" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">VirusTotal</span>
+              <span class="setting-description">Multi-engine malware and phishing scanner</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="trust-virusTotal" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">URLVoid</span>
+              <span class="setting-description">Website reputation checker (requires API key)</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="trust-urlVoid">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">PhishTank</span>
+              <span class="setting-description">Community-driven phishing database</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="trust-phishTank">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- API Keys Tab -->
+      <section id="api" class="tab-content">
+        <h2>API Keys Configuration</h2>
+        <p class="tab-description">Configure API keys for external threat intelligence services. Keys are stored securely in your browser.</p>
+        
+        <div class="setting-group">
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Google Safe Browsing API Key</span>
+              <span class="setting-description">Get your free API key from Google Cloud Console</span>
+            </div>
+            <div class="input-group">
+              <input type="password" id="googleSafeBrowsingKey" placeholder="Enter API key">
+              <button type="button" class="toggle-visibility" data-target="googleSafeBrowsingKey">👁️</button>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">VirusTotal API Key</span>
+              <span class="setting-description">Get your free API key from VirusTotal</span>
+            </div>
+            <div class="input-group">
+              <input type="password" id="virusTotalKey" placeholder="Enter API key">
+              <button type="button" class="toggle-visibility" data-target="virusTotalKey">👁️</button>
+            </div>
+          </div>
+
+          <div class="api-links">
+            <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="api-link">Get Google Safe Browsing API Key</a>
+            <a href="https://www.virustotal.com/gui/join-us" target="_blank" class="api-link">Get VirusTotal API Key</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Advanced Tab -->
+      <section id="advanced" class="tab-content">
+        <h2>Advanced Settings</h2>
+        
+        <div class="setting-group">
+          <h3>Performance</h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Max Concurrent Checks</span>
+              <span class="setting-description">Maximum number of simultaneous URL analyses</span>
+            </div>
+            <div class="input-group">
+              <input type="number" id="maxConcurrentChecks" min="1" max="10" value="3">
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Analysis Timeout</span>
+              <span class="setting-description">Maximum time to wait for analysis (seconds)</span>
+            </div>
+            <div class="input-group">
+              <input type="number" id="timeoutMs" min="5" max="60" value="10">
+              <span class="input-suffix">sec</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>User Interface</h3>
+          
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Show Detailed Results</span>
+              <span class="setting-description">Display individual model scores in popup</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="showDetailedResults" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Show Confidence Scores</span>
+              <span class="setting-description">Display confidence levels for predictions</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="showConfidenceScores" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Dark Mode</span>
+              <span class="setting-description">Use dark theme for the extension interface</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="darkMode">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <h3>Logging & Privacy</h3>
+          
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Enable Logging</span>
+              <span class="setting-description">Keep logs of analyzed URLs (stored locally)</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="loggingEnabled">
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Log Level</span>
+              <span class="setting-description">Amount of detail in logs</span>
+            </div>
+            <select id="logLevel">
+              <option value="error">Error</option>
+              <option value="warn">Warning</option>
+              <option value="info" selected>Info</option>
+              <option value="debug">Debug</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>Data Management</h3>
+          
+          <div class="action-buttons">
+            <button id="clearCacheBtn" class="action-btn secondary">Clear Cache</button>
+            <button id="exportConfigBtn" class="action-btn secondary">Export Settings</button>
+            <button id="importConfigBtn" class="action-btn secondary">Import Settings</button>
+            <button id="resetBtn" class="action-btn danger">Reset to Defaults</button>
+          </div>
+          
+          <input type="file" id="importConfigFile" accept=".json" style="display: none;">
+        </div>
+      </section>
+
+      <!-- AI Models Tab -->
+      <section id="models" class="tab-content">
+        <h2>AI Models Configuration</h2>
+        <p class="tab-description">Configure which AI models to use for phishing detection. More models provide better accuracy but may impact performance.</p>
+        
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Enable AI Models</span>
+              <span class="setting-description">Use local AI models for analysis</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="aiModelsEnabledTab" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <div class="models-grid">
+          <div class="model-card">
+            <h4>Grega Vrbancic Dataset</h4>
+            <p>URL-based phishing detection model</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-vrbancic-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <h4>Kaggle Web Page Dataset</h4>
+            <p>Machine learning phishing classifier</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-kaggle-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <h4>Mendeley Dataset</h4>
+            <p>Research-based phishing detection</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-mendeley-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <h4>HuggingFace Dataset</h4>
+            <p>Transformer-based phishing detection</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-huggingface-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <h4>IEEE Dataport Dataset</h4>
+            <p>Academic phishing attack detection</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-ieee-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <h4>PhishOFE Dataset</h4>
+            <p>Comprehensive phishing detection framework</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-phishofe-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <h4>Zenodo Dataset</h4>
+            <p>Open research phishing detection model</p>
+            <div class="model-controls">
+              <label class="toggle">
+                <input type="checkbox" id="model-zenodo-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="model-status">Loaded</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust Scores Tab -->
+      <section id="trust" class="tab-content">
+        <h2>Trust Score Services</h2>
+        <p class="tab-description">Configure external threat intelligence services. These services check URLs against known threat databases.</p>
+        
+        <div class="setting-group">
+          <label class="setting-item">
+            <div class="setting-info">
+              <span class="setting-title">Enable Trust Scores</span>
+              <span class="setting-description">Use external threat intelligence</span>
+            </div>
+            <div class="toggle">
+              <input type="checkbox" id="trustScoresEnabledTab" checked>
+              <span class="toggle-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <h4>Google Safe Browsing</h4>
+            <p>Google's comprehensive threat detection service</p>
+            <div class="service-controls">
+              <label class="toggle">
+                <input type="checkbox" id="trust-googleSafeBrowsing-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="service-status">Active</span>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <h4>VirusTotal</h4>
+            <p>Multi-engine malware and URL scanner</p>
+            <div class="service-controls">
+              <label class="toggle">
+                <input type="checkbox" id="trust-virusTotal-tab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="service-status">Active</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- API Keys Tab -->
+      <section id="api" class="tab-content">
+        <h2>API Keys</h2>
+        <p class="tab-description">Enter your API keys for external services. All keys are stored securely in your browser.</p>
+        
+        <div class="setting-group">
+          <div class="api-key-item">
+            <label for="googleSafeBrowsingKeyTab">Google Safe Browsing API Key</label>
+            <div class="input-group">
+              <input type="password" id="googleSafeBrowsingKeyTab" placeholder="Enter your API key">
+              <button type="button" class="toggle-visibility" data-target="googleSafeBrowsingKeyTab">👁️</button>
+            </div>
+            <small>Get your free API key from <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a></small>
+          </div>
+
+          <div class="api-key-item">
+            <label for="virusTotalKeyTab">VirusTotal API Key</label>
+            <div class="input-group">
+              <input type="password" id="virusTotalKeyTab" placeholder="Enter your API key">
+              <button type="button" class="toggle-visibility" data-target="virusTotalKeyTab">👁️</button>
+            </div>
+            <small>Get your free API key from <a href="https://www.virustotal.com/gui/join-us" target="_blank">VirusTotal</a></small>
+          </div>
+        </div>
+
+        <div class="api-status">
+          <h3>API Status</h3>
+          <div id="apiStatusList">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Advanced Tab -->
+      <section id="advanced" class="tab-content">
+        <!-- Advanced settings content already defined above -->
+      </section>
+    </main>
+
+    <!-- Save Notification -->
+    <div id="saveNotification" class="save-notification hidden">
+      <span>✓ Settings saved successfully</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <span>Phishing Detector Pro v1.0.0</span>
+        <div class="footer-actions">
+          <button id="saveBtn" class="action-btn primary">Save Settings</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Warning - Phishing Detector Pro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .warning-container {
+      background: white;
+      color: #333;
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .warning-icon {
+      font-size: 72px;
+      margin-bottom: 24px;
+      display: block;
+    }
+    
+    .warning-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #d73027;
+      margin-bottom: 16px;
+    }
+    
+    .warning-subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    
+    .warning-details {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    
+    .warning-details h3 {
+      color: #333;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+    
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 4px 0;
+    }
+    
+    .detail-label {
+      font-weight: 500;
+      color: #666;
+    }
+    
+    .detail-value {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .warning-url {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 6px;
+      padding: 12px;
+      margin: 16px 0;
+      word-break: break-all;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    
+    .warning-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #1e7e34;
+    }
+    
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: #545b62;
+    }
+    
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: #c82333;
+    }
+    
+    .footer-note {
+      margin-top: 32px;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
+    }
+    
+    .footer-note a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    
+    .footer-note a:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+      
+      .warning-container {
+        padding: 32px 24px;
+      }
+      
+      .warning-title {
+        font-size: 24px;
+      }
+      
+      .warning-subtitle {
+        font-size: 16px;
+      }
+      
+      .warning-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="warning-container">
+    <span class="warning-icon">🛡️</span>
+    <h1 class="warning-title">Phishing Site Blocked</h1>
+    <p class="warning-subtitle">
+      This website has been identified as a potential phishing threat by our AI detection system.
+    </p>
+    
+    <div class="warning-details">
+      <h3>Detection Details</h3>
+      <div class="detail-item">
+        <span class="detail-label">Risk Level:</span>
+        <span class="detail-value" id="riskLevel">High</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Confidence:</span>
+        <span class="detail-value" id="confidence">95%</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Detection Time:</span>
+        <span class="detail-value" id="detectionTime">Just now</span>
+      </div>
+      
+      <div class="warning-url">
+        <strong>Blocked URL:</strong><br>
+        <span id="blockedUrl">example.com</span>
+      </div>
+    </div>
+    
+    <div class="warning-actions">
+      <button id="goBack" class="btn btn-primary">🔙 Go Back to Safety</button>
+      <button id="reportSite" class="btn btn-secondary">📝 Report This Site</button>
+      <button id="proceedAnyway" class="btn btn-danger">⚠️ I Understand the Risks - Continue</button>
+    </div>
+    
+    <div class="footer-note">
+      <p>
+        <strong>Why was this site blocked?</strong><br>
+        Our AI models detected suspicious patterns commonly found in phishing websites. 
+        These sites often steal personal information, passwords, or financial data.
+      </p>
+      <p style="margin-top: 12px;">
+        Learn more about <a href="#" id="phishingInfo">phishing protection</a> or 
+        <a href="#" id="reportFalsePositive">report a false positive</a>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Parse URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const blockedUrl = urlParams.get('url');
+    const riskPercentage = urlParams.get('risk');
+    
+    // Update page content
+    if (blockedUrl) {
+      document.getElementById('blockedUrl').textContent = blockedUrl;
+    }
+    
+    if (riskPercentage) {
+      document.getElementById('riskLevel').textContent = `${riskPercentage}% Risk`;
+    }
+    
+    document.getElementById('detectionTime').textContent = new Date().toLocaleTimeString();
+    
+    // Event handlers
+    document.getElementById('goBack').addEventListener('click', () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = 'https://www.google.com';
+      }
+    });
+    
+    document.getElementById('reportSite').addEventListener('click', () => {
+      const subject = encodeURIComponent('Report Phishing Site');
+      const body = encodeURIComponent(`I would like to report a phishing site:\n\nURL: ${blockedUrl}\nRisk Level: ${riskPercentage}%\nTime: ${new Date().toISOString()}\n\nAdditional details:\n`);
+      window.open(`mailto:security@phishingdetector.com?subject=${subject}&body=${body}`);
+    });
+    
+    document.getElementById('proceedAnyway').addEventListener('click', () => {
+      if (confirm('WARNING: You are about to visit a potentially dangerous website. Are you absolutely sure you want to continue?')) {
+        window.location.href = blockedUrl;
+      }
+    });
+    
+    document.getElementById('phishingInfo').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Phishing Protection Information\\n\\n' +
+            'Phishing is a cybercrime where attackers impersonate legitimate organizations to steal sensitive information like:\\n' +
+            '• Login credentials\\n' +
+            '• Credit card numbers\\n' +
+            '• Personal information\\n' +
+            '• Banking details\\n\\n' +
+            'Our extension uses advanced AI models to detect these threats in real-time.');
+    });
+    
+    document.getElementById('reportFalsePositive').addEventListener('click', (e) => {
+      e.preventDefault();
+      const subject = encodeURIComponent('False Positive Report');
+      const body = encodeURIComponent(`I believe this site was incorrectly flagged as phishing:\n\nURL: ${blockedUrl}\nRisk Level: ${riskPercentage}%\nTime: ${new Date().toISOString()}\n\nReason for reporting:\n`);
+      window.open(`mailto:support@phishingdetector.com?subject=${subject}&body=${body}`);
+    });
+  </script>
+</body>
+</html>

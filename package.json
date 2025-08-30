@@ -1,0 +1,39 @@
+{
+  "name": "phishing-detector-pro",
+  "version": "1.0.0",
+  "description": "Real-time phishing detection Chrome extension using AI models and threat intelligence",
+  "main": "background/background.js",
+  "scripts": {
+    "build": "npm run copy-tensorflow && npm run prepare-models",
+    "copy-tensorflow": "cp node_modules/@tensorflow/tfjs/dist/tf.min.js assets/",
+    "prepare-models": "echo 'Model preparation would go here - download and convert models'",
+    "test": "echo 'Tests would go here'",
+    "lint": "eslint src/ background/ popup/ options/ content/",
+    "package": "npm run build && zip -r phishing-detector-pro.zip . -x node_modules/\\* .git/\\* *.zip",
+    "dev": "npm run copy-tensorflow"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0"
+  },
+  "keywords": [
+    "chrome-extension",
+    "phishing-detection",
+    "security",
+    "ai",
+    "machine-learning",
+    "cybersecurity"
+  ],
+  "author": "Phishing Detector Pro Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phishing-detector/chrome-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/phishing-detector/chrome-extension/issues"
+  },
+  "homepage": "https://github.com/phishing-detector/chrome-extension#readme"
+}
