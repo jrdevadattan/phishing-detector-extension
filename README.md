@@ -8,7 +8,7 @@ Protect yourself from phishing websites in real-time using advanced AI models an
 
 1. **Download**
    - Visit the [Releases](https://github.com/jrdevadattan/phishing-detector-extension/releases) page.
-   - Download the latest `phishing-detector-extension.tar.gz`.
+   - Download the latest `phishing-detector-extension.tar.gz` or `phishing-detector-extension.zip`.
 
 2. **Install in Chrome**
    - Extract the archive.
