@@ -1,10 +1,10 @@
-# 🛡️ Phishing Detector Pro
+#  Phishing Detector Pro
 
 Protect yourself from phishing websites in real-time using advanced AI models and threat intelligence sources.
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 1. **Download**
    - Visit the [Releases](https://github.com/jrdevadattan/phishing-detector-extension/releases) page.
@@ -23,7 +23,7 @@ Protect yourself from phishing websites in real-time using advanced AI models an
 
 ---
 
-## 🛡️ Features
+##  Features
 
 - Real-time URL analysis
 - 7 integrated AI phishing detection models
@@ -34,7 +34,7 @@ Protect yourself from phishing websites in real-time using advanced AI models an
 
 ---
 
-## 🎯 Usage
+##  Usage
 
 - Browsing is automatically protected.
 - Extension badge shows risk level:
@@ -45,7 +45,7 @@ Protect yourself from phishing websites in real-time using advanced AI models an
 
 ---
 
-## ⚙️ Settings
+##  Settings
 
 - Enable/disable models and services
 - Set risk threshold (default: 70%)
@@ -53,7 +53,7 @@ Protect yourself from phishing websites in real-time using advanced AI models an
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 - Ensure the extension is enabled and permissions are granted.
 - Check API keys if external services fail.
@@ -62,7 +62,7 @@ Protect yourself from phishing websites in real-time using advanced AI models an
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 phishing-detector-extension/
@@ -87,7 +87,7 @@ phishing-detector-extension/
 
 ---
 
-## 👨‍💻 Developer Guide
+##  Developer Guide
 
 - **Clone the repo:**  
   `git clone https://github.com/jrdevadattan/phishing-detector-extension.git`
@@ -101,7 +101,7 @@ phishing-detector-extension/
   Pull requests and issues are welcome!
 
 ---
-## 📸 Screenshots
+##  Screenshots
 
 ### Extension Popup
 <img width="1917" height="1136" alt="image" src="https://github.com/user-attachments/assets/a6016df9-66a7-4472-8d67-00d9cb26a4c7" />
