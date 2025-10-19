@@ -1,4 +1,4 @@
-#  Phishing Detector Pro
+#  Legitly — because trust shouldn’t be a guessing game.
 
 Protect yourself from phishing websites in real-time using advanced AI models and threat intelligence sources.
 
@@ -104,10 +104,10 @@ phishing-detector-extension/
 ##  Screenshots
 
 ### Extension Popup
-<img width="1917" height="1136" alt="image" src="https://github.com/user-attachments/assets/a6016df9-66a7-4472-8d67-00d9cb26a4c7" />
+<img width="1919" height="1132" alt="image" src="https://github.com/user-attachments/assets/8991c2fb-6c57-476f-9523-ae9dc24fcf43" />
 
 ### Settings Page
-<img width="1897" height="1026" alt="image" src="https://github.com/user-attachments/assets/0c845364-cfa3-4c26-b0ba-82226af76462" />
+<img width="1919" height="1084" alt="image" src="https://github.com/user-attachments/assets/28263bb3-c669-4028-ad82-bdeb3a0d92c3" />
 
 ## 📖 Credits
 
