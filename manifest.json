@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Phishing Detector Pro",
+  "name": "Legitly",
   "version": "1.0.0",
-  "description": "Real-time phishing detection using AI models and threat intelligence",
+  "description": "Because trust shouldn't be a guessing game. Real-time phishing detection using AI models and threat intelligence",
   
   "permissions": [
     "storage",
@@ -34,7 +34,7 @@
   
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Phishing Detector",
+    "default_title": "Legitly",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

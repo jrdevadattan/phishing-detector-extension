@@ -11,10 +11,8 @@ export class EnsembleDecisionEngine {
     };
     
     this.trustScoreWeights = {
-      googleSafeBrowsing: 0.4,
-      virusTotal: 0.35,
-      urlVoid: 0.15,
-      phishTank: 0.1
+      googleSafeBrowsing: 0.6,
+      virusTotal: 0.4
     };
     
     // Overall weight distribution
@@ -181,6 +179,16 @@ export class EnsembleDecisionEngine {
   }
 
   applyEnsembleBoosting(baseScore, aiResult, trustResult) {
+    // Check if any trust service identified this as a known legitimate domain
+    const hasKnownLegitimateDomain = Object.values(trustResult.details || {}).some(
+      detail => detail && detail.details && detail.details.isKnownLegitimate
+    );
+
+    // If it's a known legitimate domain, significantly reduce the risk score
+    if (hasKnownLegitimateDomain) {
+      return Math.min(0.2, baseScore * 0.5);
+    }
+
     // Boost confidence when multiple sources agree
     const aiHigh = aiResult.score > 0.7;
     const aiLow = aiResult.score < 0.3;
@@ -197,9 +205,9 @@ export class EnsembleDecisionEngine {
       return Math.max(0, baseScore * 0.8);
     }
     
-    // Conflicting results - reduce confidence by staying closer to neutral
+    // Conflicting results - be more conservative and lean towards safety
     if ((aiHigh && trustLow) || (aiLow && trustHigh)) {
-      return 0.4 + (baseScore - 0.5) * 0.5;
+      return 0.3 + (baseScore - 0.5) * 0.4; // More conservative approach
     }
     
     return baseScore;
@@ -225,6 +233,13 @@ export class EnsembleDecisionEngine {
       trustScores: {},
       factors: []
     };
+    
+    // Check for government or trusted domains
+    const domainReputation = trustScores.domainReputation;
+    if (domainReputation && domainReputation.details) {
+      if (domainReputation.details.isLegitimate) {
+        breakdown.factors.push("✓ Verified legitimate domain");
+      }
 
     // AI Models breakdown
     Object.entries(aiModels).forEach(([key, result]) => {
@@ -306,5 +321,5 @@ export class EnsembleDecisionEngine {
       score: avgScore,
       confidence: Math.min(0.9, features.length * 0.1)
     };
-  }
+  };
 }

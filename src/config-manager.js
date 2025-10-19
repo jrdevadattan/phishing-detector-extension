@@ -54,8 +54,8 @@ export class ConfigManager {
 
   async getConfig() {
     try {
-      const stored = await chrome.storage.sync.get('phishing_detector_config');
-      return { ...this.defaultConfig, ...stored.phishing_detector_config };
+      const stored = await chrome.storage.sync.get('legitly_config');
+      return { ...this.defaultConfig, ...stored.legitly_config };
     } catch (error) {
       console.error('Error getting config:', error);
       return this.defaultConfig;
@@ -68,7 +68,7 @@ export class ConfigManager {
       const updatedConfig = { ...currentConfig, ...newConfig };
       
       await chrome.storage.sync.set({
-        phishing_detector_config: updatedConfig
+        legitly_config: updatedConfig
       });
       
       return updatedConfig;
@@ -80,11 +80,11 @@ export class ConfigManager {
 
   async initializeDefaults() {
     try {
-      const existingConfig = await chrome.storage.sync.get('phishing_detector_config');
-      
-      if (!existingConfig.phishing_detector_config) {
+      const existingConfig = await chrome.storage.sync.get('legitly_config');
+
+      if (!existingConfig.legitly_config) {
         await chrome.storage.sync.set({
-          phishing_detector_config: this.defaultConfig
+          legitly_config: this.defaultConfig
         });
         console.log('Initialized default configuration');
       }
@@ -96,7 +96,7 @@ export class ConfigManager {
   async resetToDefaults() {
     try {
       await chrome.storage.sync.set({
-        phishing_detector_config: this.defaultConfig
+        legitly_config: this.defaultConfig
       });
       return this.defaultConfig;
     } catch (error) {
@@ -133,7 +133,7 @@ export class ConfigManager {
       const validatedConfig = this.validateConfig(importData.config);
       
       await chrome.storage.sync.set({
-        phishing_detector_config: validatedConfig
+        legitly_config: validatedConfig
       });
       
       return validatedConfig;

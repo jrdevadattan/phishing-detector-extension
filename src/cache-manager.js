@@ -1,6 +1,6 @@
 export class CacheManager {
   constructor() {
-    this.cachePrefix = 'phishing_cache_';
+    this.cachePrefix = 'legitly_cache_';
     this.maxCacheSize = 1000; // Maximum number of cached results
     this.defaultExpiry = 60; // Default expiry in minutes
   }

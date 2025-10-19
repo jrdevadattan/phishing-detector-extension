@@ -10,20 +10,24 @@ let configManager;
 
 // Initialize extension
 chrome.runtime.onInstalled.addListener(async () => {
-  console.log('Phishing Detector Pro installed');
+  console.log('Legitly installed');
   
-  // Initialize managers
-  configManager = new ConfigManager();
-  cacheManager = new CacheManager();
-  aiModelManager = new AIModelManager();
-  trustScoreManager = new TrustScoreManager();
-  ensembleEngine = new EnsembleDecisionEngine();
-  
-  // Load AI models
-  await aiModelManager.loadModels();
-  
-  // Set default settings
-  await configManager.initializeDefaults();
+  try {
+    // Initialize managers in correct order
+    configManager = new ConfigManager();
+    await configManager.initializeDefaults();
+    
+    cacheManager = new CacheManager();
+    trustScoreManager = new TrustScoreManager();
+    ensembleEngine = new EnsembleDecisionEngine();
+    
+    // Initialize AI models last since they depend on config
+    aiModelManager = new AIModelManager();
+    await aiModelManager.loadModels();
+    
+  } catch (error) {
+    console.error('Initialization error:', error);
+  }
 });
 
 // Listen for navigation events
@@ -43,29 +47,63 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 // Main URL analysis function
 async function analyzeURL(url, tabId) {
   try {
+    if (!url || !tabId) {
+      console.warn('Invalid URL or tabId');
+      return;
+    }
+
     // Get configuration
     const config = await configManager.getConfig();
     
-    if (!config.enabled) return;
-    
-    // Check cache first
-    const cachedResult = await cacheManager.get(url);
-    if (cachedResult && !isExpired(cachedResult.timestamp, config.cacheExpiry)) {
-      await handleResult(cachedResult.result, url, tabId);
+    if (!config || !config.enabled) {
+      console.log('Extension disabled or config not loaded');
       return;
     }
     
-    // Perform analysis
-    const result = await performPhishingAnalysis(url, config);
+    // Initialize managers if they're not ready
+    if (!ensembleEngine || !aiModelManager || !trustScoreManager || !cacheManager) {
+      console.warn('Managers not initialized, reinitializing...');
+      ensembleEngine = new EnsembleDecisionEngine();
+      aiModelManager = aiModelManager || new AIModelManager();
+      trustScoreManager = trustScoreManager || new TrustScoreManager();
+      cacheManager = cacheManager || new CacheManager();
+      await aiModelManager.loadModels();
+    }
     
-    // Cache result
-    await cacheManager.set(url, result);
+    // Check cache first
+    let result;
+    const cachedResult = await cacheManager.get(url);
+    if (cachedResult && !isExpired(cachedResult.timestamp, config.cacheExpiry)) {
+      result = cachedResult.result;
+      console.log('Using cached result for:', url);
+    } else {
+      // Perform new analysis
+      result = await performPhishingAnalysis(url, config);
+      if (result && result.ensemble) {
+        await cacheManager.set(url, result);
+      }
+    }
     
     // Handle result
-    await handleResult(result, url, tabId);
+    if (result && result.ensemble) {
+      await handleResult(result, url, tabId);
+    } else {
+      console.error('Invalid analysis result for:', url);
+      // Set a neutral result if analysis fails
+      const neutralResult = {
+        ensemble: {
+          riskPercentage: 50,
+          confidence: 0.1,
+          recommendation: 'SUSPICIOUS'
+        }
+      };
+      await handleResult(neutralResult, url, tabId);
+    }
     
   } catch (error) {
     console.error('Error analyzing URL:', error);
+    // Set badge to indicate error
+    await updateBadge(50, tabId);
   }
 }
 
@@ -222,8 +260,8 @@ async function showWarningNotification(url, result) {
   
   chrome.notifications.create({
     type: 'basic',
-    iconUrl: 'icons/icon48.png',
-    title: 'Phishing Warning',
+    iconUrl: chrome.runtime.getURL('icons/icon48.png'),
+    title: 'Legitly Warning',
     message: `Suspicious website detected: ${domain}\nRisk: ${result.ensemble.riskPercentage}%`
   });
 }
@@ -248,19 +286,52 @@ function isExpired(timestamp, expiryMinutes) {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   (async () => {
     try {
+      if (!request || !request.action) {
+        throw new Error('Invalid request');
+      }
+
       switch (request.action) {
         case 'getResult':
+          if (!request.tabId) {
+            throw new Error('Missing tabId');
+          }
           const result = await chrome.storage.local.get(`result_${request.tabId}`);
-          sendResponse(result[`result_${request.tabId}`] || null);
+          const storedResult = result[`result_${request.tabId}`];
+          
+          if (!storedResult) {
+            // If no result found, trigger new analysis
+            if (sender.tab && sender.tab.url) {
+              await analyzeURL(sender.tab.url, request.tabId);
+              const newResult = await chrome.storage.local.get(`result_${request.tabId}`);
+              sendResponse(newResult[`result_${request.tabId}`] || null);
+            } else {
+              sendResponse(null);
+            }
+          } else {
+            sendResponse(storedResult);
+          }
           break;
           
         case 'forceAnalysis':
+          if (!request.url || !request.tabId) {
+            throw new Error('Missing url or tabId');
+          }
           await analyzeURL(request.url, request.tabId);
-          sendResponse({ success: true });
+          // Get and send the fresh result
+          const freshResult = await chrome.storage.local.get(`result_${request.tabId}`);
+          sendResponse({
+            success: true,
+            result: freshResult[`result_${request.tabId}`]
+          });
           break;
           
         case 'updateConfig':
+          if (!request.config) {
+            throw new Error('Missing config');
+          }
           await configManager.updateConfig(request.config);
+          // Clear cache when config changes
+          await cacheManager.clear();
           sendResponse({ success: true });
           break;
           
@@ -268,7 +339,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           sendResponse({ error: 'Unknown action' });
       }
     } catch (error) {
-      sendResponse({ error: error.message });
+      console.error('Message handler error:', error);
+      sendResponse({ 
+        error: error.message,
+        success: false
+      });
     }
   })();
   

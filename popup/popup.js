@@ -348,7 +348,7 @@ async function retryAnalysis() {
 function reportIssue() {
   // Open reporting form or email
   chrome.tabs.create({
-    url: 'mailto:support@phishingdetector.com?subject=Phishing%20Detector%20Issue'
+    url: 'mailto:support@legitly.com?subject=Legitly%20Issue'
   });
 }
 
@@ -358,7 +358,8 @@ function openSettings() {
 
 function showHelp() {
   // Create help modal or open help page
-  alert('Phishing Detector Pro Help\n\n' +
+  alert('Legitly Help\n\n' +
+        'Because trust shouldn\'t be a guessing game.\n\n' +
         'This extension analyzes websites for phishing threats using:\n' +
         '• Multiple AI models trained on phishing datasets\n' +
         '• Public threat intelligence services\n' +
@@ -373,8 +374,8 @@ function showHelp() {
 // Apply theme based on user preference
 async function applyTheme() {
   try {
-    const config = await chrome.storage.sync.get('phishing_detector_config');
-    const darkMode = config.phishing_detector_config?.ui?.darkMode;
+    const config = await chrome.storage.sync.get('legitly_config');
+    const darkMode = config.legitly_config?.ui?.darkMode;
     
     if (darkMode) {
       document.body.classList.add('dark-mode');

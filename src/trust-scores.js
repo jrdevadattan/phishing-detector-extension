@@ -1,3 +1,6 @@
+import { LEGITIMATE_DOMAINS } from './legitimate-domains.js';
+import { DomainAnalyzer } from './domain-analyzer.js';
+
 export class TrustScoreManager {
   constructor() {
     this.apiKeys = {};
@@ -5,6 +8,8 @@ export class TrustScoreManager {
       googleSafeBrowsing: { calls: 0, resetTime: 0, limit: 10000 }, // Per day
       virusTotal: { calls: 0, resetTime: 0, limit: 500 } // Per day for free tier
     };
+    this.legitDomains = LEGITIMATE_DOMAINS;
+    this.domainAnalyzer = new DomainAnalyzer();
   }
 
   async getGoogleSafeBrowsing(url) {
@@ -34,7 +39,7 @@ export class TrustScoreManager {
 
       const requestBody = {
         client: {
-          clientId: 'phishing-detector-pro',
+          clientId: 'legitly',
           clientVersion: '1.0.0'
         },
         threatInfo: {
@@ -65,12 +70,17 @@ export class TrustScoreManager {
       const data = await response.json();
       const isPhishing = data.matches && data.matches.length > 0;
       
+      // Parse the domain and check if it's a known legitimate domain
+      const urlObj = new URL(url);
+      const domain = urlObj.hostname.toLowerCase();
+      const isKnownLegitimate = this.isKnownLegitimateDomain(domain);
+      
       return {
         service: 'Google Safe Browsing',
-        score: isPhishing ? 0.9 : 0.1, // High confidence binary result
-        confidence: 0.95,
+        score: isKnownLegitimate ? 0.05 : (isPhishing ? 0.9 : 0.1),
+        confidence: isKnownLegitimate ? 0.98 : 0.95,
         details: data.matches || [],
-        isSafe: !isPhishing,
+        isSafe: isKnownLegitimate || !isPhishing,
         timestamp: Date.now()
       };
 
@@ -146,18 +156,29 @@ export class TrustScoreManager {
       const totalScans = stats.harmless + stats.malicious + stats.suspicious + stats.undetected;
       const maliciousRatio = totalScans > 0 ? (stats.malicious + stats.suspicious) / totalScans : 0;
       
+      // Check if it's a known legitimate domain
+      const urlObj = new URL(url);
+      const domain = urlObj.hostname.toLowerCase();
+      const isKnownLegitimate = this.isKnownLegitimateDomain(domain);
+      
+      // Adjust score for known legitimate domains
+      const adjustedScore = isKnownLegitimate ? 
+        Math.min(0.1, maliciousRatio) : // Cap score at 0.1 for legitimate domains
+        maliciousRatio;
+      
       return {
         service: 'VirusTotal',
-        score: maliciousRatio,
-        confidence: totalScans > 10 ? 0.9 : 0.6,
+        score: adjustedScore,
+        confidence: isKnownLegitimate ? 0.98 : (totalScans > 10 ? 0.9 : 0.6),
         details: {
           harmless: stats.harmless,
           malicious: stats.malicious,
           suspicious: stats.suspicious,
           undetected: stats.undetected,
-          total: totalScans
+          total: totalScans,
+          isKnownLegitimate
         },
-        isSafe: maliciousRatio < 0.1,
+        isSafe: isKnownLegitimate || maliciousRatio < 0.1,
         timestamp: Date.now()
       };
 
@@ -208,6 +229,51 @@ export class TrustScoreManager {
 
   updateRateLimit(service) {
     this.rateLimits[service].calls++;
+  }
+
+  isKnownLegitimateDomain(domain) {
+    // Remove 'www.' prefix if present
+    domain = domain.replace(/^www\./, '');
+    
+    // Check exact domain match
+    if (this.legitDomains.has(domain)) {
+      return true;
+    }
+    
+    // Check for government and educational domains
+    if (domain.endsWith('.gov') || domain.endsWith('.mil') || domain.endsWith('.edu')) {
+      return true;
+    }
+    
+    // Check for subdomains of legitimate domains
+    return Array.from(this.legitDomains).some(legitDomain => 
+      domain.endsWith('.' + legitDomain)
+    );
+  }
+
+  async getDomainReputation(url) {
+    try {
+      const analysis = this.domainAnalyzer.analyzeURL(url);
+      
+      return {
+        service: 'Domain Reputation',
+        score: analysis.score,
+        confidence: analysis.confidence,
+        details: analysis.details,
+        reputation: analysis.reputation,
+        isSafe: analysis.score < 0.4,
+        timestamp: Date.now()
+      };
+    } catch (error) {
+      console.error('Domain reputation error:', error);
+      return {
+        service: 'Domain Reputation',
+        score: 0.5,
+        confidence: 0.3,
+        error: error.message,
+        timestamp: Date.now()
+      };
+    }
   }
 
   // Aggregate multiple trust scores
